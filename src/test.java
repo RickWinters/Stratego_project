@@ -6,6 +6,8 @@ public class test {
         System.out.println("Dit is Fernon");
         System.out.println("hallo");
 
+
+        System.out.println("Begin 2 alinea");
         System.out.println("ik wilde eigenlijk 2 + 2 doen");
     }
 }
