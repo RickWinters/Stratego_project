@@ -1,0 +1,41 @@
+OVERAL getters en setters voor, dat heeft de library voor een database nodig.
+longID overal in voor een database.
+misschien zelf een database script aanmaken??? Omdat het kan.
+
+:Spel
+    -NieuwSpel()
+        -nieuwe bord aanmaken
+        -nieuwe spelers aanmaken
+        -niewue spelstukken aanmaken en toevoegen aan bord "Speltukken[][]"
+    -Spelen()
+    -stop()
+
+:Bord
+    -naam (voor als we meerdere spelborden hebben)
+    -Spelstukken[][]
+    -Print()
+    -Checkbound() (even kijken of de speler hier wel naar toe kan lopen)
+    -
+
+:Speler
+    -naam
+    -win/lost
+    -team
+    -beurt()
+        -een stuk kiezen
+        -welke richting op?
+
+:Spelstuk (algemeen)
+    -move() (check inbouwen voor vlag en bom)
+    -attack() (voor diegene die de standaard aanval hebben: is mijn waarde gelijk of hoger, dan win ik)
+    :Spelstuk (per type)
+        -naam
+        -value
+        -attack() (voor de uitzonderingen: mineur, anti-maarschalk, bommen, vlag
+
+------------------------------------------
+Database?
+Hier hetzelfde voor hoe de database werkt?
+
+
+test blablabla
