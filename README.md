@@ -1,0 +1,1 @@
+"# Stratego_project" 
