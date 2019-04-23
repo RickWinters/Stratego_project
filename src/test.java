@@ -6,6 +6,7 @@ public class test {
         System.out.println("Dit is Fernon");
         System.out.println("hallo");
         System.out.println("hoi");
+        System.out.println("hier heb ik nog een test blablabla");
 
 
         System.out.println("Begin 2 alinea");
