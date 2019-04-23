@@ -14,7 +14,7 @@ misschien zelf een database script aanmaken??? Omdat het kan.
     -naam (voor als we meerdere spelborden hebben)
     -Spelstukken[][]
     -Print()
-    -Checkbound() (even kijken of de speler hier wel naar toe kan lopen)
+    -Move() (check inbouwen voor vlag en bom) ( hierin ook Checkbound() (even kijken of de speler hier wel naar toe kan lopen))
     -
 
 :Speler
@@ -26,7 +26,7 @@ misschien zelf een database script aanmaken??? Omdat het kan.
         -welke richting op?
 
 :Spelstuk (algemeen)
-    -move() (check inbouwen voor vlag en bom)
+
     -attack() (voor diegene die de standaard aanval hebben: is mijn waarde gelijk of hoger, dan win ik)
     :Spelstuk (per type)
         -naam
