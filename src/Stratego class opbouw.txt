@@ -1,5 +1,5 @@
 OVERAL getters en setters voor, dat heeft de library voor een database nodig.
-longID overal in voor een database.
+longID overal in elk object voor een database.
 misschien zelf een database script aanmaken??? Omdat het kan.
 
 :Spel
