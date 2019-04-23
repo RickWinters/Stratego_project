@@ -13,6 +13,7 @@ public class test {
         System.out.println("ik wilde eigenlijk 2 + 2 doen");
         System.out.println("Dit hoop ik dat het werkt");
         System.out.println("Zou dit ook werken?????");
+        System.out.println("dit is mijn eigen ding");
 
 
         /*
