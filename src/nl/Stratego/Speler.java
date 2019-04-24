@@ -35,6 +35,7 @@ public class Speler {
         return spelerwins;
     }
 
+
     public void setSpelerwins(int spelerwins) {
         this.spelerwins = spelerwins;
     }
