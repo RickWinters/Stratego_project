@@ -9,10 +9,6 @@ public class Speler {
     private boolean gewonnen;
     private int speler1team;
 
-    private String speler2;
-    private int speler2wins;
-    private int speler2losses;
-    private int speler2team;
 
     public void beurt(){};
 
@@ -66,37 +62,5 @@ public class Speler {
 
     public void setSpeler1team(int speler1team) {
         this.speler1team = speler1team;
-    }
-
-    public String getSpeler2() {
-        return speler2;
-    }
-
-    public void setSpeler2(String speler2) {
-        this.speler2 = speler2;
-    }
-
-    public int getSpeler2wins() {
-        return speler2wins;
-    }
-
-    public void setSpeler2wins(int speler2wins) {
-        this.speler2wins = speler2wins;
-    }
-
-    public int getSpeler2losses() {
-        return speler2losses;
-    }
-
-    public void setSpeler2losses(int speler2losses) {
-        this.speler2losses = speler2losses;
-    }
-
-    public int getSpeler2team() {
-        return speler2team;
-    }
-
-    public void setSpeler2team(int speler2team) {
-        this.speler2team = speler2team;
     }
 }
