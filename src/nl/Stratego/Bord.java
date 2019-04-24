@@ -40,6 +40,9 @@ public class Bord {
     public void setSpeelStukken(int[][] speelStukken) {
         SpeelStukken = speelStukken;
     }
+
+    public Bord() {
+    }
 }
 
 

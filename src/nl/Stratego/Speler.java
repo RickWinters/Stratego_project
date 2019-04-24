@@ -11,10 +11,10 @@ public class Speler {
 
     public void beurt(){};
 
+    public Speler(String speler) {
+        this.speler = speler;
+    }
 
-
-
-    
     public long getId() {
         return id;
     }
