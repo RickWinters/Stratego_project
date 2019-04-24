@@ -1,13 +1,29 @@
 package nl.Stratego;
 
+import nl.Stratego.Speelstukken.Bom;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Speelstuk {
     long id;
     private int value;
     private String naam;
+    private int team;
 
-    public Speelstuk(int value, String naam){
+    public Speelstuk(int team,int value, String naam){
+        this.team = team;
         this.value = value;
         this.naam = naam;
+    }
+
+    public Object Teamstukken (int team){
+        List Teamstukken = new ArrayList();
+        Teamstukken.add(new Bom(team));
+        Teamstukken.add(new Bom(team));
+
+
+        return Teamstukken;
     }
     public void Attack(){
         System.out.println("speelstuk valt aan");

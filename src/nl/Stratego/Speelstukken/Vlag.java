@@ -3,7 +3,7 @@ package nl.Stratego.Speelstukken;
 import nl.Stratego.Speelstuk;
 
 public class Vlag extends Speelstuk {
-    Vlag(){
-        super(12, "vlag");
+    public Vlag(int team){
+        super(team,12, "vlag");
     }
 }

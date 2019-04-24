@@ -3,7 +3,7 @@ package nl.Stratego.Speelstukken;
 import nl.Stratego.Speelstuk;
 
 public class Generaal extends Speelstuk {
-    Generaal(){
+    public Generaal(){
         super(9, "Generaal");
     }
 }
