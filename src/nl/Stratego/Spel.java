@@ -5,11 +5,6 @@ public class Spel {
 
     private String name;
 
-    public void newGame(){};
-
-    public void newSpelers(){};
-
-
 
 
 
