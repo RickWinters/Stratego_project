@@ -52,11 +52,17 @@ public class Bord {
         return team;
     }
 
-
-
     public void move(int x, int y, int x_new, int y_new){
+        //op dit moment heb ik de updates van alle spelstukken nog niet om te bepalen bij welke team ze horen.
+        //het is dus niet mogelijk om te implementeren dat het niet mogelijk is om op een plek van je eigen team te komen
+        //of om te bepalen dat je een andere team aanvalt
+        //de enige check die ik kan doen is om te kijken of de plek waar je naartoe wil een blokkade is (instanceof String)
+        //en om te kijken of de plek waar je naar toe wil leeg is ()
         if (SpeelStukken[x_new][y_new] instanceof String){
             System.out.println("dit is een een blokkade waar je naartoe wilt spelen");
+        } else if (SpeelStukken[x_new][y_new] == null){
+            SpeelStukken[x_new][y_new] = SpeelStukken[x][y];
+            SpeelStukken[x][y] = null;
         }
     }
 
