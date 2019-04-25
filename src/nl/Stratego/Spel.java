@@ -5,7 +5,11 @@ public class Spel {
 
     private String name;
 
-
+    public static void main(String[] args) {
+        //RICK: dit heb ik even gedaan om de bord constructor en de toString te testen in Bord.
+        Bord bord = new Bord();
+        System.out.println(bord);
+    }
 
 
 
