@@ -1,6 +1,6 @@
 package nl.Stratego;
 
-import nl.Stratego.Speelstukken.Bom;
+import nl.Stratego.Speelstukken.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +17,8 @@ public class Speelstuk {
         this.naam = naam;
     }
 
-    public Object Teamstukken (int team){
-        List Teamstukken = new ArrayList();
-        Teamstukken.add(new Bom(team));
-        Teamstukken.add(new Bom(team));
 
-
-        return Teamstukken;
-    }
+    //Methodes voor het aanvallen
     public void Attack(){
         System.out.println("speelstuk valt aan");
     }
@@ -37,6 +31,8 @@ public class Speelstuk {
         }
     }
 
+
+    //Methodes voor het aanmaken
     public long getId() {
         return id;
     }
