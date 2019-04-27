@@ -115,7 +115,7 @@ public class Bord {
         return SpeelStukken;
     }
 
-    public void setSpeelStukken(int[][] speelStukken) {
+    public void setSpeelStukken(Object[][] speelStukken) {
         SpeelStukken = speelStukken;
     }
 
