@@ -11,7 +11,6 @@ public class Bord {
     private String blokkade = "blokkade";
     Object[][] SpeelStukken = new Object[10][10];
 
-
     //Constructor(s), de default constructor
     public Bord(){
         List<Speelstuk> team1 = this.createteam(); //De tijdelijk functie om een team aan te maken aante roepen
@@ -115,6 +114,11 @@ public class Bord {
     public Object[][] getSpeelStukken() {
         return SpeelStukken;
     }
+
+    public void setSpeelStukken(int[][] speelStukken) {
+        SpeelStukken = speelStukken;
+    }
+
 }
 
 
