@@ -47,18 +47,18 @@ public class Bord {
         List Teamstukken = new ArrayList();
         //Elk stuk krijgt een apart object en daarom worden 40 stukken gemaakt hieronder. Deze krijgen allemaal
         //het teamnummer mee zodat er onderscheid gemaakt kan worden.
-        for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team)); //BOM
-        MAARSCHALK: Teamstukken.add(new Maarschalk(team));
-        GENERAAL:   Teamstukken.add(new Generaal(team));
-        KOLONEL:    for (int i = 0; i<2;i++) Teamstukken.add(new Kolonel(team));
-        MAJOOR:     for (int i = 0; i<3;i++) Teamstukken.add(new Majoor(team));
-        KAPITEIN:   for (int i = 0; i<4;i++) Teamstukken.add(new Kapitein(team));
-        LUITENANT:  for (int i = 0; i<4;i++) Teamstukken.add(new Luitenant(team));
-        SERGEANT:   for (int i = 0; i<4;i++) Teamstukken.add(new Sergeant(team));
-        MINEUR:     for (int i = 0; i<5;i++) Teamstukken.add(new Mineur(team));
-        VERKENNER:  for (int i = 0; i<8;i++) Teamstukken.add(new Verkenner(team));
-        SPION:      Teamstukken.add(new Spion(team));
-        VLAG:       Teamstukken.add(new Vlag(team));
+        for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team));
+        Teamstukken.add(new Maarschalk(team));
+        Teamstukken.add(new Generaal(team));
+        for (int i = 0; i<2;i++) Teamstukken.add(new Kolonel(team));
+        for (int i = 0; i<3;i++) Teamstukken.add(new Majoor(team));
+        for (int i = 0; i<4;i++) Teamstukken.add(new Kapitein(team));
+        for (int i = 0; i<4;i++) Teamstukken.add(new Luitenant(team));
+        for (int i = 0; i<4;i++) Teamstukken.add(new Sergeant(team));
+        for (int i = 0; i<5;i++) Teamstukken.add(new Mineur(team));
+        for (int i = 0; i<8;i++) Teamstukken.add(new Verkenner(team));
+        Teamstukken.add(new Spion(team));
+        Teamstukken.add(new Vlag(team));
         return Teamstukken;
     }
 
@@ -90,9 +90,9 @@ public class Bord {
                         } else {
                             spelstukString = "| " + value;
                         }
-                    } else if (SpeelStukken[y][x] instanceof String) { //als er niet naar een object wordt verwezen op deze plek is deze plek leeg
+                    } else if (SpeelStukken[y][x] instanceof String) { //Als er een String wordt gevonden dan is het een blokkade
                         spelstukString = "| x ";
-                    } else { // en anders is het een muur.
+                    } else { //Leeg stuk ruimte waar heen gelopen kan worden
                         spelstukString = "| o ";
                     }
                     bordstring.append(spelstukString);
@@ -123,10 +123,6 @@ public class Bord {
 
     public Object[][] getSpeelStukken() {
         return SpeelStukken;
-    }
-
-    public void setSpeelStukken(int[][] speelStukken) {
-        SpeelStukken = speelStukken;
     }
 
 }
