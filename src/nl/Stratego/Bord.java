@@ -48,7 +48,7 @@ public class Bord {
         List Teamstukken = new ArrayList();
         //Elk stuk krijgt een apart object en daarom worden 40 stukken gemaakt hieronder. Deze krijgen allemaal
         //het teamnummer mee zodat er onderscheid gemaakt kan worden.
-        BOM:        for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team));
+        for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team)); //BOM
         MAARSCHALK: Teamstukken.add(new Maarschalk(team));
         GENERAAL:   Teamstukken.add(new Generaal(team));
         KOLONEL:    for (int i = 0; i<2;i++) Teamstukken.add(new Kolonel(team));
