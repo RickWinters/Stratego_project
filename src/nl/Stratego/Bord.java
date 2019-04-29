@@ -90,9 +90,9 @@ public class Bord {
                             spelstukString = "| " + value;
                         }
                     } else if (speelBord[y][x] instanceof Blokkade) { //Als er een String wordt gevonden dan is het een blokkade
-                        spelstukString = "| x ";
+                        spelstukString = "| X ";
                     } else { //Leeg stuk ruimte waar heen gelopen kan worden
-                        spelstukString = "| o ";
+                        spelstukString = "| O ";
                     }
                     bordstring.append(spelstukString);
                 }
