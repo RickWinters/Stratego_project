@@ -11,7 +11,7 @@ public class Bord {
     private long id;
     private String naam = "default";
     private String blokkade = "blokkade";
-    Object[][] SpeelStukken = new Object[10][10];
+    Object[][] speelBord = new Object[10][10];
 
     //Constructor(s), de default constructor
     public Bord(){
@@ -21,24 +21,24 @@ public class Bord {
         for (int y = 0;y < 4; y++){ //het bord vullen
             for (int x = 0; x<10; x++){
                 int ind = rand.nextInt(team1.size());
-                SpeelStukken[y][x] = team1.get(ind);
+                speelBord[y][x] = team1.get(ind);
                 team1.remove(ind);
 
                 ind = rand.nextInt(team2.size()); //dit kan gelijk voor team 2, de x coordinaat wordt alleen met 6 verhoogd.
-                SpeelStukken[y+6][x] = team2.get(ind);
+                speelBord[y+6][x] = team2.get(ind);
                 team2.remove(ind);
 
             }
         }
         //hardcoded blokkades
-        SpeelStukken[4][2] = blokkade; //coordinaten 5,3
-        SpeelStukken[4][3] = blokkade; //coordinaten 5,4
-        SpeelStukken[5][2] = blokkade;
-        SpeelStukken[5][3] = blokkade;
-        SpeelStukken[4][6] = blokkade;
-        SpeelStukken[4][7] = blokkade;
-        SpeelStukken[5][6] = blokkade;
-        SpeelStukken[5][7] = blokkade;
+        speelBord[4][2] = blokkade; //coordinaten 5,3
+        speelBord[4][3] = blokkade; //coordinaten 5,4
+        speelBord[5][2] = blokkade;
+        speelBord[5][3] = blokkade;
+        speelBord[4][6] = blokkade;
+        speelBord[4][7] = blokkade;
+        speelBord[5][6] = blokkade;
+        speelBord[5][7] = blokkade;
     }
 
 
@@ -68,11 +68,11 @@ public class Bord {
         //of om te bepalen dat je een andere team aanvalt
         //de enige check die ik kan doen is om te kijken of de plek waar je naartoe wil een blokkade is (instanceof String)
         //en om te kijken of de plek waar je naar toe wil leeg is ()
-        if (SpeelStukken[x_new][y_new] instanceof String){
+        if (speelBord[x_new][y_new] instanceof String){
             System.out.println("dit is een een blokkade waar je naartoe wilt spelen");
-        } else if (SpeelStukken[x_new][y_new] == null){
-            SpeelStukken[x_new][y_new] = SpeelStukken[x][y];
-            SpeelStukken[x][y] = null;
+        } else if (speelBord[x_new][y_new] == null){
+            speelBord[x_new][y_new] = speelBord[x][y];
+            speelBord[x][y] = null;
         }
     }
 
@@ -82,15 +82,15 @@ public class Bord {
             for (int y = 0; y < 10; y++) {
                 for (int x = 0; x < 10; x++) { //deze forloop voegt voor ieder vakje de value van het spelstuk toe of een "o" als het vakje leeg is.
                     String spelstukString;
-                    if (SpeelStukken[y][x] instanceof Speelstuk) {
-                        Speelstuk speelstuk = (Speelstuk) SpeelStukken[y][x];
+                    if (speelBord[y][x] instanceof Speelstuk) {
+                        Speelstuk speelstuk = (Speelstuk) speelBord[y][x];
                         int value = speelstuk.getValue();
                         if (value < 10) {
                             spelstukString = "|  " + value; //een extra spatie toevoegen als de waarde kleiner is dan tien, zodat de uitlijning mooi klopt.
                         } else {
                             spelstukString = "| " + value;
                         }
-                    } else if (SpeelStukken[y][x] instanceof String) { //Als er een String wordt gevonden dan is het een blokkade
+                    } else if (speelBord[y][x] instanceof String) { //Als er een String wordt gevonden dan is het een blokkade
                         spelstukString = "| x ";
                     } else { //Leeg stuk ruimte waar heen gelopen kan worden
                         spelstukString = "| o ";
@@ -121,8 +121,8 @@ public class Bord {
         this.naam = naam;
     }
 
-    public Object[][] getSpeelStukken() {
-        return SpeelStukken;
+    public Object[][] getSpeelBord() {
+        return speelBord;
     }
 
     public void setSpeelStukken(int[][] speelStukken) {
