@@ -11,9 +11,9 @@ public class Speler {
 
     public void beurt(){};
 
-    public Speler(String speler,int team) {
-        this.spelerNaam = speler;
-        this.spelerTeam = team;
+    public Speler(String spelerNaam,int spelerTeam) {
+        this.spelerNaam = spelerNaam;
+        this.spelerTeam = spelerTeam;
     }
 
     public long getId() {
