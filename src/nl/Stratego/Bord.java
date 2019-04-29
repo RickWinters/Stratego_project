@@ -10,9 +10,8 @@ public class Bord {
     //variables
     private long id;
     private String naam = "default";
-    private String blokkade = "blokkade";
     Object[][] speelBord = new Object[10][10];
-
+    private Blokkade blokkade = new Blokkade();
     //Constructor(s), de default constructor
     public Bord(){
         List<Speelstuk> team1 = this.createteam(0); //De tijdelijk functie om een team aan te maken aante roepen
@@ -90,7 +89,7 @@ public class Bord {
                         } else {
                             spelstukString = "| " + value;
                         }
-                    } else if (speelBord[y][x] instanceof String) { //Als er een String wordt gevonden dan is het een blokkade
+                    } else if (speelBord[y][x] instanceof Blokkade) { //Als er een String wordt gevonden dan is het een blokkade
                         spelstukString = "| x ";
                     } else { //Leeg stuk ruimte waar heen gelopen kan worden
                         spelstukString = "| o ";
@@ -125,10 +124,10 @@ public class Bord {
         return speelBord;
     }
 
-    public void setSpeelStukken(int[][] speelStukken) {
-        SpeelStukken = speelStukken;
-    }
 
 }
+
+
+class Blokkade{}
 
 
