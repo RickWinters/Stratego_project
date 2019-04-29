@@ -3,8 +3,8 @@ package nl.Stratego.Speelstukken;
 import nl.Stratego.Speelstuk;
 
 public class Verkenner extends Speelstuk {
-    Verkenner(){
-        super(2,"Verkenner");
+    public Verkenner(int team){
+        super(team,2,"Verkenner");
     }
 }
 

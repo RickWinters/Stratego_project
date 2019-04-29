@@ -3,7 +3,7 @@ package nl.Stratego.Speelstukken;
 import nl.Stratego.Speelstuk;
 
 public class Majoor extends Speelstuk {
-    Majoor(){
-        super(7, "Majoor");
+    public Majoor(int team){
+        super(team,7, "Majoor");
     }
 }
