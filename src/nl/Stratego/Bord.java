@@ -44,7 +44,7 @@ public class Bord {
 
     //Methode voor het maken van 40 speelstukken
     public List<Speelstuk> createteam (int team){
-        List Teamstukken = new ArrayList();
+        List<Speelstuk> Teamstukken = new ArrayList<>();
         //Elk stuk krijgt een apart object en daarom worden 40 stukken gemaakt hieronder. Deze krijgen allemaal
         //het teamnummer mee zodat er onderscheid gemaakt kan worden.
         for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team));
