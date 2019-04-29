@@ -1,14 +1,24 @@
 package nl.Stratego;
 
+import nl.Stratego.Speelstukken.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Speelstuk {
     long id;
     private int value;
     private String naam;
+    private int team;
 
-    public Speelstuk(int value, String naam){
+    public Speelstuk(int team,int value, String naam){
+        this.team = team;
         this.value = value;
         this.naam = naam;
     }
+
+
+    //Methodes voor het aanvallen
     public void Attack(){
         System.out.println("speelstuk valt aan");
     }
@@ -21,6 +31,8 @@ public class Speelstuk {
         }
     }
 
+
+    //Methodes voor het aanmaken
     public long getId() {
         return id;
     }
