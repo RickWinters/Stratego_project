@@ -61,6 +61,65 @@ public class Bord {
         return Teamstukken;
     }
 
+    //method for asking pion (int y, int x)
+        // calls method if pion is own team
+        // calls method if pion can move!
+
+    //method for checking if pion is of own team and movable
+
+
+    //method for moving pion (int y, int x)
+        // calls method for checking which directions pion can move
+
+    public void move(int pionYLocation, int pionXLocation) {
+        while (true) {
+            try {
+                List<String> beweegRichtingMatrix = movementCheck(pionYLocation,pionXLocation);
+                break;
+            } catch (noAvailableMovementException e) {
+                System.out.println("Deze pion kan je in geen enekele richting bewegen");
+            }
+        }
+
+
+
+
+    }
+
+    //method for checking the movement of pion
+
+    public List<String> movementCheck (int pionYLocation, int pionXLocation) throws noAvailableMovementException{
+        StringBuilder beweegRichting = new StringBuilder();
+        List<String> beweegRichtingMatrix = new ArrayList<>();
+
+        if (speelBord[pionYLocation-1][pionXLocation]==null){
+            beweegRichting.append("[Up (u)]");
+            beweegRichtingMatrix.add("u");
+
+        }
+        if (speelBord[pionYLocation+1][pionXLocation]==null){
+            beweegRichting.append(("[Down (d)]"));
+            beweegRichtingMatrix.add("d");
+        }
+        if (speelBord[pionYLocation][pionXLocation+1]==null){
+            beweegRichting.append(("[Right (r)]"));
+            beweegRichtingMatrix.add("r");
+        }
+        if (speelBord[pionYLocation][pionXLocation-1]==null){
+            beweegRichting.append(("[Left (l)]"));
+            beweegRichtingMatrix.add("u");
+        }
+
+        if (beweegRichtingMatrix.isEmpty()){
+            throw new noAvailableMovementException();
+        } else {
+            System.out.print("U kunt in de volgende richtingen bewegen: ");
+            System.out.println(beweegRichting);
+        }
+        return beweegRichtingMatrix;
+    }
+
+
     public void move(int x, int y, int x_new, int y_new){
         //op dit moment heb ik de updates van alle spelstukken nog niet om te bepalen bij welke team ze horen.
         //het is dus niet mogelijk om te implementeren dat het niet mogelijk is om op een plek van je eigen team te komen
