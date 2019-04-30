@@ -3,6 +3,7 @@ package nl.Stratego;
 import java.util.Scanner;
 
 public class Speler {
+    private Scanner scanner = new Scanner; // een scanner aanmaken zodat om user input gevraagd kan worden
     private long id;
 
     private String spelerNaam;
@@ -12,22 +13,18 @@ public class Speler {
     private boolean gewonnen;
 
     public void beurt() {
-        Scanner scanner = new Scanner(System.in);
+        //Eerst vragen om de x locatie van het pion dat je wilt verplaatsten
         while(true){
             try {
-                System.out.println("voer coordinaten in om te selecteren welke speelstuk je wilt bewegen");
-                String antwoord = scanner.nextLine();
-                int coords = Integer.parseInt(antwoord);
-                /*
-                convert antwoord naar integers,
-                gebruik integers als coordinaten
-                vraag bord of het mogelijk is (rickloop)
-
-                 */
+                System.out.println("geef de X locatie van de pion dat je wilt verplaatsen");
+                int X = scanner.nextInt();
+                System.out.println("geef de Y locatie van de pion dat je wilt verplaatsen");
+                int Y = scanner.nextInt();
+                if (X < 1 || X > 11){throw new InvalidInputException()}
                 break;
             }
-            catch (Exception e){
-                    System.out.println();
+            catch (InvalidInputException IIE){
+                System.out.println("Verkeerde waarde ingevoerd ");
             }
         }
     }
