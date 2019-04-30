@@ -77,6 +77,8 @@ public class Bord {
 
     public String toString(){
         StringBuilder bordstring = new StringBuilder();
+        bordstring.append("| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| \n");
+        bordstring.append("-----------------------------------------\n");
         bordstring.append("+---+---+---+---+---+---+---+---+---+---+\n");
             for (int y = 0; y < 10; y++) {
                 for (int x = 0; x < 10; x++) { //deze forloop voegt voor ieder vakje de value van het spelstuk toe of een "o" als het vakje leeg is.
