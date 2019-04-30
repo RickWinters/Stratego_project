@@ -24,5 +24,6 @@ public class Applicatie {
         System.out.println(spelerBord);
 
 
+
     }
 }
