@@ -19,9 +19,9 @@ public class Applicatie {
 
 
         Bord spelerBord = new Bord();
-        //System.out.println(spelerBord);
-        //spelerBord.move(3,4,4,4);
-        //System.out.println(spelerBord);
+        System.out.println(spelerBord);
+        spelerBord.move(3,4,4,4);
+        System.out.println(spelerBord);
 
 
     }
