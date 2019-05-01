@@ -68,121 +68,80 @@ public class Bord {
         // calls method if pion is own team
         // calls method if pion can move in any direction
 
-    //method for checking if pion is of own team and movable
+
+    public boolean pieceCheck (int pionYLocation, int pionXLocation, Speler spelerAanDeBeurt){
+        Speelstuk gekozenSpeelstuk = (Speelstuk)speelBord[pionYLocation][pionXLocation];
+        if (spelerAanDeBeurt.getSpelerTeam() == gekozenSpeelstuk.getTeam()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
-    public void move(int pionYLocation, int pionXLocation) {
-        //Voordat een pion bewogen mag worden, wordt eerst gecheckt of deze wel daadwerkelijk mag bewegen.
-        //Als het goed is wordt dat al gecheckt in de code bij het kiezen van de pion. Echter moet ik wel
-        //een Stringmatrix terug krijgen om de beweging daadwerklijk uit te voeren. Ook zouden wel de matrix
-        //in de methodes doorgeven. Dit is dus tijdelijk wel een goede oplossing imo.
-        List<String> beweegRichtingMatrix;
-        while (true) {
-            try {
-                //Test of de pion wel in een richting bewogen kan worden. Als dat correct is dan gaat de code verder
-                beweegRichtingMatrix = movementCheck(pionYLocation,pionXLocation);
-                break;
-            } catch (noAvailableMovementException e) {
-                System.out.println("Deze pion kan je in geen enekele richting bewegen");
-            }
 
+    private boolean movementCheck (int pionYLocation, int pionXLocation) {
+        //Check of de nieuwe plaats wel op het bord ligt
+        try {
+            Object temp = speelBord[pionYLocation][pionXLocation];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Je kunt een stuk niet naast het bord plaatsen!");
+            return false;
         }
 
+        //Check of de nieuwe plaats wel beschikbaar is om heen te gaan
+        if (speelBord[pionYLocation][pionXLocation] instanceof Speelstuk) {
+            System.out.println("Dit kan nog niet, hier staat een andere speler");
+            return false;
+        } else if (speelBord[pionYLocation][pionXLocation] instanceof Blokkade) {
+            System.out.println("Hier kun je niet doorheen!");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    //Deze code verplaatst de stukken, maar kan alleen aangeroepen worden nadat de movement check is uitgevoerd
+    private void movePiece (int pionYLocationNew, int pionXLocationNew, int pionYLocationOld, int pionXLocationOld){
+        speelBord[pionYLocationNew][pionXLocationNew] = speelBord[pionYLocationOld][pionXLocationOld];
+        speelBord[pionYLocationOld][pionXLocationOld] = null;
+    }
+
+    public void moveChooser(int pionYLocation, int pionXLocation, Speler speler) {
+        MOVELOOP: //Loop hierdoor totdat een geldige optie gekozen wordt
         while(true) {
             Scanner scanner = new Scanner(System.in);
-            try {
-                //De scanner wordt gecheckt of deze wel een van de geldige opties bevat.
-                //Als dat niet zo is dan blijft hij in de while loop. Anders doorloopt hij de code en breakt hij.
-                String movementDirection = scanner.next();
-                if (!beweegRichtingMatrix.contains(movementDirection)){
-                    throw new noViableOption();
-                }
+            String movementDirection = scanner.next();
 
-                //Vervolgens wordt de locatie aangepast afhankelijk van de user input
-                switch (movementDirection){
-                    case "u":
-                        speelBord[pionYLocation-1][pionXLocation] = speelBord[pionYLocation][pionXLocation];
-                        speelBord[pionYLocation][pionXLocation] = null;
-                        break;
-                    case "d":
-                        speelBord[pionYLocation+1][pionXLocation] = speelBord[pionYLocation][pionXLocation];
-                        speelBord[pionYLocation][pionXLocation] = null;
-                        break;
-                    case "r":
-                        speelBord[pionYLocation][pionXLocation+1] = speelBord[pionYLocation][pionXLocation];
-                        speelBord[pionYLocation][pionXLocation] = null;
-                        break;
-                    case "l":
-                        speelBord[pionYLocation][pionXLocation-1] = speelBord[pionYLocation][pionXLocation];
-                        speelBord[pionYLocation][pionXLocation] = null;
-                        break;
-                    default:
-                        //Deze optie zorgt ervoor dat als er een input als "dr" gekozen wordt er ook een error
-                        //gegeven wordt.
-                        throw new noViableOption();
-                }
-
-                break;
-            } catch (noViableOption es){
-                System.out.println("This is not a viable option, choose from: "+beweegRichtingMatrix);
+            switch (movementDirection) {
+                case "u":
+                    if (movementCheck(pionYLocation - 1,pionXLocation)){
+                        movePiece(pionYLocation - 1,pionXLocation,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "d":
+                    if (movementCheck(pionYLocation + 1,pionXLocation)){
+                        movePiece(pionYLocation + 1,pionXLocation,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "r":
+                    if (movementCheck(pionYLocation,pionXLocation + 1)){
+                        movePiece(pionYLocation,pionXLocation + 1,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "l":
+                    if (movementCheck(pionYLocation,pionXLocation - 1)){
+                        movePiece(pionYLocation,pionXLocation - 1,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                default:
+                    //Deze optie zorgt ervoor dat als er een input als "dr" gekozen wordt, je opnieuw moet kiezen.
+                    System.out.println("U heeft een ongeldige richting gekozen, kies uit: Up (u), Down (d), Left (l), Right (r)");
             }
         }
-
-
     }
-
-    public List<String> movementCheck (int pionYLocation, int pionXLocation) throws noAvailableMovementException{
-        //beweegRichting wordt gebruikt om de gebruiker te laten zien welke kanten hij kan op bewegen
-        //beweegRichtingMatrix wordt gebruikt om in het programma door te geven welke richtingen mogelijk zijn.
-        StringBuilder beweegRichting = new StringBuilder();
-        List<String> beweegRichtingMatrix = new ArrayList<>();
-
-        //Als eerst wordt gecheckt of de positie niet out of bounds kan gaan
-        if (pionYLocation!=0) {
-            //Vervolgens wordt gecheckt of de positie met een verplaatsing (in dit geval y-omhoog) wel leeg is)
-            if (speelBord[pionYLocation - 1][pionXLocation] == null) {
-                beweegRichting.append("[Up (u)]");
-                beweegRichtingMatrix.add("u");
-
-            }
-        }
-        if (pionYLocation!=10) {
-            if (speelBord[pionYLocation + 1][pionXLocation] == null) {
-                beweegRichting.append(("[Down (d)]"));
-                beweegRichtingMatrix.add("d");
-            }
-        }
-        if (pionXLocation!=10) {
-            //Vervolgens wordt gecheckt of de positie met een verplaatsing (in dit geval x-rechts) wel leeg is)
-            if (speelBord[pionYLocation][pionXLocation + 1] == null) {
-                beweegRichting.append(("[Right (r)]"));
-                beweegRichtingMatrix.add("r");
-            }
-        }
-        if (pionXLocation!=0) {
-            if (speelBord[pionYLocation][pionXLocation - 1] == null) {
-                beweegRichting.append(("[Left (l)]"));
-                beweegRichtingMatrix.add("u");
-            }
-        }
-
-        //Als alle locatie om hem heen vol zijn dan zijn beide lijsten leeg.
-        //Dan heeft de speler een slechte pion gekozen en krijgt hij een exception die hij moet oplossen.
-        if (beweegRichtingMatrix.isEmpty()){
-            throw new noAvailableMovementException();
-        } else {
-            //Is er wel een mogelijkheid om te bewegen dan dan worden deze geprint in de terminal
-            System.out.print("U kunt in de volgende richtingen bewegen: ");
-            System.out.println(beweegRichting);
-        }
-
-        //Voor de move moeten de beweegbare richtingen doorgegeven worden
-        return beweegRichtingMatrix;
-    }
-
-
-
 
     public String toString() {
         StringBuilder bordstring = new StringBuilder();
