@@ -83,15 +83,12 @@ public class Bord {
 
     private boolean movementCheck (int pionYLocation, int pionXLocation) {
         //Check of de nieuwe plaats wel op het bord ligt
-        try {
-            Object temp = speelBord[pionYLocation][pionXLocation];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Je kunt een stuk niet naast het bord plaatsen!");
+        if (pionYLocation < 0 || pionYLocation > 10 || pionXLocation < 0 || pionXLocation > 10) {
+            System.out.println("Deze locatie zit buiten het bord");
             return false;
         }
-
         //Check of de nieuwe plaats wel beschikbaar is om heen te gaan
-        if (speelBord[pionYLocation][pionXLocation] instanceof Speelstuk) {
+        else if (speelBord[pionYLocation][pionXLocation] instanceof Speelstuk) {
             System.out.println("Dit kan nog niet, hier staat een andere speler");
             return false;
         } else if (speelBord[pionYLocation][pionXLocation] instanceof Blokkade) {
