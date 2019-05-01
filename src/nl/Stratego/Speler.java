@@ -20,7 +20,7 @@ public class Speler {
                 int X = scanner.nextInt();
                 System.out.println("geef de Y locatie van de pion dat je wilt verplaatsen");
                 int Y = scanner.nextInt();
-                if (X < 1 || X > 11){throw new InvalidInputException()}
+                if (X < 1 || X > 11){throw new InvalidInputException()};
                 break;
             }
             catch (InvalidInputException IIE){
