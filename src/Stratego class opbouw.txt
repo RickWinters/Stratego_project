@@ -26,7 +26,6 @@ misschien zelf een database script aanmaken??? Omdat het kan.
         -welke richting op?
 
 :Spelstuk (algemeen)
-
     -attack() (voor diegene die de standaard aanval hebben: is mijn waarde gelijk of hoger, dan win ik)
     :Spelstuk (per type)
         -naam
