@@ -104,8 +104,11 @@ public class Bord {
     }
 
     //Deze code verplaatst de stukken, maar kan alleen aangeroepen worden nadat de movement check is uitgevoerd
+    //Daarom is deze ook private!
     private void movePiece (int pionYLocationNew, int pionXLocationNew, int pionYLocationOld, int pionXLocationOld){
+        //Sla het speelstuk op de nieuwe plaats op
         speelBord[pionYLocationNew][pionXLocationNew] = speelBord[pionYLocationOld][pionXLocationOld];
+        //Gooi de oude weg
         speelBord[pionYLocationOld][pionXLocationOld] = null;
     }
 
@@ -115,8 +118,10 @@ public class Bord {
             Scanner scanner = new Scanner(System.in);
             String movementDirection = scanner.next();
 
+            //Kijk of de input voldoet aan een van de volgende cases "u,d,r,l"
             switch (movementDirection) {
                 case "u":
+                    //Check of hij wel in deze richting kan bewegen, zo ja: voer move uit, zo nee: nieuwe input vragen
                     if (movementCheck(pionYLocation - 1,pionXLocation)){
                         movePiece(pionYLocation - 1,pionXLocation,pionYLocation,pionXLocation);
                         break MOVELOOP;
@@ -137,7 +142,8 @@ public class Bord {
                         break MOVELOOP;
                     } break;
                 default:
-                    //Deze optie zorgt ervoor dat als er een input als "dr" gekozen wordt, je opnieuw moet kiezen.
+                    //Als geen geldige input wordt ingevuld, als "w,a,s" of "dr", dan komt hij hier in terecht en
+                    //vraagt hij om nieuwe input.
                     System.out.println("U heeft een ongeldige richting gekozen, kies uit: Up (u), Down (d), Left (l), Right (r)");
             }
         }
