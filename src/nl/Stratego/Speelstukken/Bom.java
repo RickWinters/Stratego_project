@@ -23,5 +23,4 @@ public class Bom extends Speelstuk{
 //            System.out.println("something went wrong: "+e.getMessage());
 //        }
 //    }
-
 }
