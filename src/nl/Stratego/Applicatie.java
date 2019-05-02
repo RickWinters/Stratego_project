@@ -8,10 +8,10 @@ public class Applicatie {
 
 
         Scanner scanner = new Scanner(System.in);
-        //System.out.print("Voer naam speler 1 in:");
-        Speler speler1 = new Speler("henk",0);
-        //System.out.print("Voer naam speler 2 in:");
-        Speler speler2 = new Speler("piet",1);
+        System.out.print("Voer naam speler 1 in:");
+        Speler speler1 = new Speler(scanner.nextLine(),0);
+        System.out.print("Voer naam speler 2 in:");
+        Speler speler2 = new Speler(scanner.nextLine(),1);
 
         System.out.println(speler1);
         System.out.println(speler2);
