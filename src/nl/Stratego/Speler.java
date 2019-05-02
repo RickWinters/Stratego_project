@@ -4,32 +4,85 @@ import java.util.Scanner;
 
 public class Speler {
     private long id;
-
     private String spelerNaam;
     private int spelerWins;
     private int spelerLosses;
     private int spelerTeam;
     private boolean gewonnen;
+    private Scanner scanner = new Scanner(System.in);
 
-    public void beurt() {
-        Scanner scanner = new Scanner(System.in);
-        while(true){
-            try {
-                System.out.println("voer coordinaten in om te selecteren welke speelstuk je wilt bewegen");
-                String antwoord = scanner.nextLine();
-                int coords = Integer.parseInt(antwoord);
-                /*
-                convert antwoord naar integers,
-                gebruik integers als coordinaten
-                vraag bord of het mogelijk is (rickloop)
-                
-                 */
-                break;
-            }
-            catch (Exception e){
-                    System.out.println();
-            }
+
+    private int[] selectPiece(){
+        /*
+        -vragen om user input
+        -user input checken op validity
+            -probeer te parsen naar 2 coordinaten --> int[]{x,y}
+            -als het goed is, return int[]{x,y}
+            -als het niet goed is, return int[]{-1,-1}
+         */
+        System.out.println("Welke speelstuk wil je bewegen? Voer coordinaten in als volgt: x,y");
+        String answer = scanner.nextLine();
+        int ind = answer.indexOf(',');
+        String first = answer.substring(0,ind);
+        String second = answer.substring(ind+1);
+        int[] coords = new int[]{0,0};
+        try{
+            coords[0] = Integer.parseInt(first)-1;
+            coords[1] = Integer.parseInt(second)-1;
+        } catch (Exception e){
+            coords[0] = -1;
+            coords[1] = -1;
         }
+        return coords;
+    }
+
+    private boolean checkPiece(int[] coords,Bord bord){
+        /*
+        -coords doorgeven aan Bord.checkValidPiece() --> returned false als het niet goed is en print een message naar
+            de user inside de method, returned true als het wel goed is
+
+        -return true als het kan, return false als het niet kan
+         */
+        return bord.checkValidPiece(coords[1],coords[0],this.spelerTeam);
+    }
+
+    private void selectDirection(){
+
+    }
+
+    private void moveDirection(){
+
+    }
+
+    void beurt(Bord bord) {
+        /*
+        -aan speler de coordinaten vragen voor welk speelstuk hij wil verzetten
+        -coordinaten aan Bord doorgeven voor check of dit valid is, zo nee opnieuw vragen
+        -aan speler richting vragen
+        -richting aanb ord doordgeven en move uitvoeren.
+         */
+
+        //in een do while not correct loop zetten
+        boolean passed = false;
+        int[] selectCoords = {0,0}; //declareer de array alvast zodat ie gebruikt kan worden in het vervolg
+        do{
+            passed = true; // eerst maar eens even de check op true zetten.
+            selectCoords = this.selectPiece(); //Vraag om user input om te bepalen welke speelstuk hij/zij wil verzetten. {-1,-1} als het niet goed is, {x, y} als het wel goed is
+            if (selectCoords[0] == -1) { // eerst kijken of de user wel goede input heeft gegeven
+                System.out.println("Er ging iets mis met het invoeren, probeer het nog een keer");
+                passed = false;
+                continue; //als het misgaat, springt java vanaf hier meteen naar de while(!passed) en slaat de volgende check dus over. Aangezien dat niet gaat :)
+            }
+            if(!this.checkPiece(selectCoords,bord)){ //daarna kijken of het wel een correcte speelstuk is
+                //prints wanneer iets verkeerd gekozen is gebeurt al in bord.
+                passed = false;
+            }
+        } while(!passed); // blijf vragen totdat user input goed is en het een correcte speelstuk is.
+
+        this.selectDirection();
+        this.moveDirection();
+
+
     }
 
 

@@ -8,10 +8,10 @@ public class Applicatie {
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Voer naam speler 1 in:");
-        Speler speler1 = new Speler(scanner.nextLine(),0);
-        System.out.print("Voer naam speler 2 in:");
-        Speler speler2 = new Speler(scanner.nextLine(),1);
+        //System.out.print("Voer naam speler 1 in:");
+        Speler speler1 = new Speler("henk",0);
+        //System.out.print("Voer naam speler 2 in:");
+        Speler speler2 = new Speler("piet",1);
 
         System.out.println(speler1);
         System.out.println(speler2);
@@ -21,7 +21,7 @@ public class Applicatie {
         Bord spelerBord = new Bord();
         System.out.println(spelerBord);
 
-        spelerBord.moveChooser(3,4,speler1);
+        speler1.beurt(spelerBord);
         System.out.println(spelerBord);
 
 

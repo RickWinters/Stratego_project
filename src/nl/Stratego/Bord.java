@@ -78,6 +78,24 @@ public class Bord {
         }
     }
 
+    boolean checkValidPiece(int pionYlocation, int pionXLocation, int team){
+        Object gekozenStuk = speelBord[pionYlocation][pionXLocation];
+        if(gekozenStuk == blokkade){
+            System.out.println("Je hebt een blokkade gekozen");
+            return false;
+        } else if (gekozenStuk == null){
+            System.out.println("Je hebt een lege plek gekozen");
+            return false;
+        } else {
+            Speelstuk gekozenSpeelStuk = (Speelstuk)gekozenStuk; //casten naar een Speelstuk object
+            if (gekozenSpeelStuk.getTeam() != team){
+                System.out.println("het gekozen speelstuk is niet van jou team");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 
 
 
