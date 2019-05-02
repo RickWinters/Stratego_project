@@ -10,6 +10,7 @@ public class Speler {
     private int spelerTeam;
     private boolean gewonnen;
     private Scanner scanner = new Scanner(System.in);
+    private int[] selectCoords = {0,0}; //deze wordt aangepast
 
 
     private int[] selectPiece(){
@@ -46,25 +47,10 @@ public class Speler {
         return bord.checkValidPiece(coords[1],coords[0],this.spelerTeam);
     }
 
-    private void selectDirection(){
-
-    }
-
-    private void moveDirection(){
-
-    }
-
-    void beurt(Bord bord) {
-        /*
-        -aan speler de coordinaten vragen voor welk speelstuk hij wil verzetten
-        -coordinaten aan Bord doorgeven voor check of dit valid is, zo nee opnieuw vragen
-        -aan speler richting vragen
-        -richting aanb ord doordgeven en move uitvoeren.
-         */
+    public void beurt(Bord bord) {
 
         //in een do while not correct loop zetten
         boolean passed = false;
-        int[] selectCoords = {0,0}; //declareer de array alvast zodat ie gebruikt kan worden in het vervolg
         do{
             passed = true; // eerst maar eens even de check op true zetten.
             selectCoords = this.selectPiece(); //Vraag om user input om te bepalen welke speelstuk hij/zij wil verzetten. {-1,-1} als het niet goed is, {x, y} als het wel goed is
@@ -79,10 +65,17 @@ public class Speler {
             }
         } while(!passed); // blijf vragen totdat user input goed is en het een correcte speelstuk is.
 
-        this.selectDirection();
-        this.moveDirection();
 
-
+        passed = false; //passed weer op false zetten.
+        do{
+            System.out.println("welke richting wil je deze op bewegen?");
+            System.out.println("selecteer uit up(u), down(d), left(l) of right(r)");
+            //bord.moveChooser vraag al om user input welke richting je op wilt, als dit mogelijk is gebeurt dit ook meteen
+            //is de move ook uitgevoerd, dan komt true eruit, en anders false
+            if (bord.moveChooser(selectCoords[1],selectCoords[0],this)){ //in bord.moveChooser, wordt al gevraagd voor user input in welke richting je wilt bewegen, en wordt dit gedaan waneer het kan.
+                passed = true;
+            }
+        } while (!passed);
     }
 
 
