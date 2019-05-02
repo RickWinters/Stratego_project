@@ -3,30 +3,79 @@ package nl.Stratego;
 import java.util.Scanner;
 
 public class Speler {
-    private Scanner scanner = new Scanner; // een scanner aanmaken zodat om user input gevraagd kan worden
     private long id;
-
     private String spelerNaam;
     private int spelerWins;
     private int spelerLosses;
     private int spelerTeam;
     private boolean gewonnen;
+    private Scanner scanner = new Scanner(System.in);
+    private int[] selectCoords = {0,0}; //deze wordt aangepast
 
-    public void beurt() {
-        //Eerst vragen om de x locatie van het pion dat je wilt verplaatsten
-        while(true){
-            try {
-                System.out.println("geef de X locatie van de pion dat je wilt verplaatsen");
-                int X = scanner.nextInt();
-                System.out.println("geef de Y locatie van de pion dat je wilt verplaatsen");
-                int Y = scanner.nextInt();
-                if (X < 1 || X > 11){throw new InvalidInputException()};
-                break;
-            }
-            catch (InvalidInputException IIE){
-                System.out.println("Verkeerde waarde ingevoerd ");
-            }
+
+    private int[] selectPiece(){
+        /*
+        -vragen om user input
+        -user input checken op validity
+            -probeer te parsen naar 2 coordinaten --> int[]{x,y}
+            -als het goed is, return int[]{x,y}
+            -als het niet goed is, return int[]{-1,-1}
+         */
+        System.out.println("Welke speelstuk wil je bewegen? Voer coordinaten in als volgt: x,y");
+        String answer = scanner.nextLine();
+        int ind = answer.indexOf(',');
+        String first = answer.substring(0,ind);
+        String second = answer.substring(ind+1);
+        int[] coords = new int[]{0,0};
+        try{
+            coords[0] = Integer.parseInt(first)-1;
+            coords[1] = Integer.parseInt(second)-1;
+        } catch (Exception e){
+            coords[0] = -1;
+            coords[1] = -1;
         }
+        return coords;
+    }
+
+    private boolean checkPiece(int[] coords,Bord bord){
+        /*
+        -coords doorgeven aan Bord.checkValidPiece() --> returned false als het niet goed is en print een message naar
+            de user inside de method, returned true als het wel goed is
+
+        -return true als het kan, return false als het niet kan
+         */
+        return bord.checkValidPiece(coords[1],coords[0],this.spelerTeam);
+    }
+
+    public void beurt(Bord bord) {
+
+        //in een do while not correct loop zetten
+        boolean passed = false;
+        do{
+            passed = true; // eerst maar eens even de check op true zetten.
+            selectCoords = this.selectPiece(); //Vraag om user input om te bepalen welke speelstuk hij/zij wil verzetten. {-1,-1} als het niet goed is, {x, y} als het wel goed is
+            if (selectCoords[0] == -1) { // eerst kijken of de user wel goede input heeft gegeven
+                System.out.println("Er ging iets mis met het invoeren, probeer het nog een keer");
+                passed = false;
+                continue; //als het misgaat, springt java vanaf hier meteen naar de while(!passed) en slaat de volgende check dus over. Aangezien dat niet gaat :)
+            }
+            if(!this.checkPiece(selectCoords,bord)){ //daarna kijken of het wel een correcte speelstuk is
+                //prints wanneer iets verkeerd gekozen is gebeurt al in bord.
+                passed = false;
+            }
+        } while(!passed); // blijf vragen totdat user input goed is en het een correcte speelstuk is.
+
+
+        passed = false; //passed weer op false zetten.
+        do{
+            System.out.println("welke richting wil je deze op bewegen?");
+            System.out.println("selecteer uit up(u), down(d), left(l) of right(r)");
+            //bord.moveChooser vraag al om user input welke richting je op wilt, als dit mogelijk is gebeurt dit ook meteen
+            //is de move ook uitgevoerd, dan komt true eruit, en anders false
+            if (bord.moveChooser(selectCoords[1],selectCoords[0],this)){ //in bord.moveChooser, wordt al gevraagd voor user input in welke richting je wilt bewegen, en wordt dit gedaan waneer het kan.
+                passed = true;
+            }
+        } while (!passed);
     }
 
 

@@ -2,6 +2,8 @@ package nl.Stratego;
 
 import java.util.Scanner;
 
+import static javax.swing.text.html.HTML.Tag.HEAD;
+
 public class Applicatie {
 
     public static void main(String[] args) {
@@ -15,15 +17,11 @@ public class Applicatie {
 
         System.out.println(speler1);
         System.out.println(speler2);
-        speler1.beurt();
-
-
         Bord spelerBord = new Bord();
         System.out.println(spelerBord);
 
-        //spelerBord.move(3,4,4,4);
-        //System.out.println(spelerBord);
-
+        speler1.beurt(spelerBord);
+        System.out.println(spelerBord);
 
 
     }
