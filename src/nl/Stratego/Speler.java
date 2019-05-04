@@ -1,18 +1,41 @@
 package nl.Stratego;
 
+import java.util.Scanner;
+
 public class Speler {
     private long id;
 
-    private String speler;
-    private int spelerwins;
-    private int spelerlosses;
-    private int spelerteam;
+    private String spelerNaam;
+    private int spelerWins;
+    private int spelerLosses;
+    private int spelerTeam;
     private boolean gewonnen;
 
-    public void beurt(){};
+    public void beurt() {
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            try {
+                System.out.println("voer coordinaten in om te selecteren welke speelstuk je wilt bewegen");
+                String antwoord = scanner.nextLine();
+                int coords = Integer.parseInt(antwoord);
+                /*
+                convert antwoord naar integers,
+                gebruik integers als coordinaten
+                vraag bord of het mogelijk is (rickloop)
+                
+                 */
+                break;
+            }
+            catch (Exception e){
+                    System.out.println();
+            }
+        }
+    }
 
-    public Speler(String speler) {
-        this.speler = speler;
+
+    public Speler(String spelerNaam,int spelerTeam) {
+        this.spelerNaam = spelerNaam;
+        this.spelerTeam = spelerTeam;
     }
 
     public long getId() {
@@ -24,36 +47,36 @@ public class Speler {
     }
 
     public String getSpeler() {
-        return speler;
+        return spelerNaam;
     }
 
     public void setSpeler(String speler) {
-        this.speler = speler;
+        this.spelerNaam = speler;
     }
 
-    public int getSpelerwins() {
-        return spelerwins;
+    public int getSpelerWins() {
+        return spelerWins;
     }
 
 
-    public void setSpelerwins(int spelerwins) {
-        this.spelerwins = spelerwins;
+    public void setSpelerWins(int spelerWins) {
+        this.spelerWins = spelerWins;
     }
 
-    public int getSpelerlosses() {
-        return spelerlosses;
+    public int getSpelerLosses() {
+        return spelerLosses;
     }
 
-    public void setSpelerlosses(int spelerlosses) {
-        this.spelerlosses = spelerlosses;
+    public void setSpelerLosses(int spelerLosses) {
+        this.spelerLosses = spelerLosses;
     }
 
-    public int getSpelerteam() {
-        return spelerteam;
+    public int getSpelerTeam() {
+        return spelerTeam;
     }
 
-    public void setSpelerteam(int spelerteam) {
-        this.spelerteam = spelerteam;
+    public void setSpelerTeam(int spelerteam) {
+        this.spelerTeam = spelerteam;
     }
 
     public boolean isGewonnen() {
@@ -62,5 +85,13 @@ public class Speler {
 
     public void setGewonnen(boolean gewonnen) {
         this.gewonnen = gewonnen;
+    }
+
+    @Override
+    public String toString() {
+        return "Speler{" +
+                "Naam='" + spelerNaam + '\'' +
+                ", Team=" + (spelerTeam==0 ? "Red":"Blue") +
+                '}';
     }
 }

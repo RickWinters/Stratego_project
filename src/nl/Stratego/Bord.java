@@ -5,28 +5,31 @@ import nl.Stratego.Speelstukken.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Bord {
+
     //variables
     private long id;
     private String naam = "default";
     Object[][] speelBord = new Object[10][10];
     private Blokkade blokkade = new Blokkade();
+
+
     //Constructor(s), de default constructor
-    public Bord(){
+    public Bord() {
         List<Speelstuk> team1 = this.createteam(0); //De tijdelijk functie om een team aan te maken aante roepen
         List<Speelstuk> team2 = this.createteam(1); //
         Random rand = new Random();
-        for (int y = 0;y < 4; y++){ //het bord vullen
-            for (int x = 0; x<10; x++){
+        for (int y = 0; y < 4; y++) { //het bord vullen
+            for (int x = 0; x < 10; x++) {
                 int ind = rand.nextInt(team1.size());
                 speelBord[y][x] = team1.get(ind);
                 team1.remove(ind);
 
                 ind = rand.nextInt(team2.size()); //dit kan gelijk voor team 2, de x coordinaat wordt alleen met 6 verhoogd.
-                speelBord[y+6][x] = team2.get(ind);
+                speelBord[y + 6][x] = team2.get(ind);
                 team2.remove(ind);
-
             }
         }
         //hardcoded blokkades
@@ -42,38 +45,107 @@ public class Bord {
 
 
     //Methode voor het maken van 40 speelstukken
-    public List<Speelstuk> createteam (int team){
+    public List<Speelstuk> createteam(int team) {
         List<Speelstuk> Teamstukken = new ArrayList<>();
         //Elk stuk krijgt een apart object en daarom worden 40 stukken gemaakt hieronder. Deze krijgen allemaal
         //het teamnummer mee zodat er onderscheid gemaakt kan worden.
-        for (int i = 0; i<6;i++) Teamstukken.add(new Bom(team));
+        for (int i = 0; i < 6; i++) Teamstukken.add(new Bom(team));
         Teamstukken.add(new Maarschalk(team));
         Teamstukken.add(new Generaal(team));
-        for (int i = 0; i<2;i++) Teamstukken.add(new Kolonel(team));
-        for (int i = 0; i<3;i++) Teamstukken.add(new Majoor(team));
-        for (int i = 0; i<4;i++) Teamstukken.add(new Kapitein(team));
-        for (int i = 0; i<4;i++) Teamstukken.add(new Luitenant(team));
-        for (int i = 0; i<4;i++) Teamstukken.add(new Sergeant(team));
-        for (int i = 0; i<5;i++) Teamstukken.add(new Mineur(team));
-        for (int i = 0; i<8;i++) Teamstukken.add(new Verkenner(team));
+        for (int i = 0; i < 2; i++) Teamstukken.add(new Kolonel(team));
+        for (int i = 0; i < 3; i++) Teamstukken.add(new Majoor(team));
+        for (int i = 0; i < 4; i++) Teamstukken.add(new Kapitein(team));
+        for (int i = 0; i < 4; i++) Teamstukken.add(new Luitenant(team));
+        for (int i = 0; i < 4; i++) Teamstukken.add(new Sergeant(team));
+        for (int i = 0; i < 5; i++) Teamstukken.add(new Mineur(team));
+        for (int i = 0; i < 8; i++) Teamstukken.add(new Verkenner(team));
         Teamstukken.add(new Spion(team));
         Teamstukken.add(new Vlag(team));
         return Teamstukken;
     }
 
-    public void move(int x, int y, int x_new, int y_new){
-        //op dit moment heb ik de updates van alle spelstukken nog niet om te bepalen bij welke team ze horen.
-        //het is dus niet mogelijk om te implementeren dat het niet mogelijk is om op een plek van je eigen team te komen
-        //of om te bepalen dat je een andere team aanvalt
-        //de enige check die ik kan doen is om te kijken of de plek waar je naartoe wil een blokkade is (instanceof String)
-        //en om te kijken of de plek waar je naar toe wil leeg is ()
-        if (speelBord[x_new][y_new] instanceof String){
-            System.out.println("dit is een een blokkade waar je naartoe wilt spelen");
-        } else if (speelBord[x_new][y_new] == null){
-            speelBord[x_new][y_new] = speelBord[x][y];
-            speelBord[x][y] = null;
+    //method for asking pion (int y, int x)
+        // calls method if pion is own team
+        // calls method if pion can move in any direction
+
+
+    public boolean pieceCheck (int pionYLocation, int pionXLocation, Speler spelerAanDeBeurt){
+        Speelstuk gekozenSpeelstuk = (Speelstuk)speelBord[pionYLocation][pionXLocation];
+        if (spelerAanDeBeurt.getSpelerTeam() == gekozenSpeelstuk.getTeam()) {
+            return true;
+        } else {
+            return false;
         }
     }
+
+
+
+
+    private boolean movementCheck (int pionYLocation, int pionXLocation) {
+        //Check of de nieuwe plaats wel op het bord ligt
+        if (pionYLocation < 0 || pionYLocation > 10 || pionXLocation < 0 || pionXLocation > 10) {
+            System.out.println("Deze locatie zit buiten het bord");
+            return false;
+        }
+        //Check of de nieuwe plaats wel beschikbaar is om heen te gaan
+        else if (speelBord[pionYLocation][pionXLocation] instanceof Speelstuk) {
+            System.out.println("Dit kan nog niet, hier staat een andere speler");
+            return false;
+        } else if (speelBord[pionYLocation][pionXLocation] instanceof Blokkade) {
+            System.out.println("Hier kun je niet doorheen!");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    //Deze code verplaatst de stukken, maar kan alleen aangeroepen worden nadat de movement check is uitgevoerd
+    //Daarom is deze ook private!
+    private void movePiece (int pionYLocationNew, int pionXLocationNew, int pionYLocationOld, int pionXLocationOld){
+        //Sla het speelstuk op de nieuwe plaats op
+        speelBord[pionYLocationNew][pionXLocationNew] = speelBord[pionYLocationOld][pionXLocationOld];
+        //Gooi de oude weg
+        speelBord[pionYLocationOld][pionXLocationOld] = null;
+    }
+
+    public void moveChooser(int pionYLocation, int pionXLocation, Speler speler) {
+        MOVELOOP: //Loop hierdoor totdat een geldige optie gekozen wordt
+        while(true) {
+            Scanner scanner = new Scanner(System.in);
+            String movementDirection = scanner.next();
+
+            //Kijk of de input voldoet aan een van de volgende cases "u,d,r,l"
+            switch (movementDirection) {
+                case "u":
+                    //Check of hij wel in deze richting kan bewegen, zo ja: voer move uit, zo nee: nieuwe input vragen
+                    if (movementCheck(pionYLocation - 1,pionXLocation)){
+                        movePiece(pionYLocation - 1,pionXLocation,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "d":
+                    if (movementCheck(pionYLocation + 1,pionXLocation)){
+                        movePiece(pionYLocation + 1,pionXLocation,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "r":
+                    if (movementCheck(pionYLocation,pionXLocation + 1)){
+                        movePiece(pionYLocation,pionXLocation + 1,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                case "l":
+                    if (movementCheck(pionYLocation,pionXLocation - 1)){
+                        movePiece(pionYLocation,pionXLocation - 1,pionYLocation,pionXLocation);
+                        break MOVELOOP;
+                    } break;
+                default:
+                    //Als geen geldige input wordt ingevuld, als "w,a,s" of "dr", dan komt hij hier in terecht en
+                    //vraagt hij om nieuwe input.
+                    System.out.println("U heeft een ongeldige richting gekozen, kies uit: Up (u), Down (d), Left (l), Right (r)");
+            }
+        }
+    }
+
 
     //hieronder wordt het hele bord geprint, zie volgende methode voor team specifiek bord printen
 
@@ -102,9 +174,9 @@ public class Bord {
                     } else if (speelBord[y][x] instanceof Blokkade) { //Als er een String wordt gevonden dan is het een blokkade
                         spelstukString = "| x ";
                     } else { //Leeg stuk ruimte waar heen gelopen kan worden
-                        spelstukString = "| o ";
+                        spelstukString = "|   ";
                     }
-                    bordstring.append(spelstukString);
+                    bordstring.append(spelstukString); 
                 }
                 bordstring.append("|\n");//Aan het einde komt nog een rechtstreepje en dan een niewline character
                 bordstring.append("  +---+---+---+---+---+---+---+---+---+---+\n");
@@ -176,9 +248,8 @@ public class Bord {
     public Object[][] getSpeelBord() {
         return speelBord;
     }
-
-
 }
+
 
 
 class Blokkade{}
