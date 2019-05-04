@@ -9,6 +9,7 @@ public class Spel {
         //RICK: dit heb ik even gedaan om de bord constructor en de toString te testen in Bord.
         Bord bord = new Bord();
         bord.bordPrinten();
+        bord.bordPrinten(1);
     }
 
 
