@@ -1,5 +1,7 @@
 package nl.Stratego;
 
+import java.util.Scanner;
+
 public class Speler {
     private long id;
 
@@ -9,7 +11,27 @@ public class Speler {
     private int spelerTeam;
     private boolean gewonnen;
 
-    public void beurt(){};
+    public void beurt() {
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            try {
+                System.out.println("voer coordinaten in om te selecteren welke speelstuk je wilt bewegen");
+                String antwoord = scanner.nextLine();
+                int coords = Integer.parseInt(antwoord);
+                /*
+                convert antwoord naar integers,
+                gebruik integers als coordinaten
+                vraag bord of het mogelijk is (rickloop)
+                
+                 */
+                break;
+            }
+            catch (Exception e){
+                    System.out.println();
+            }
+        }
+    }
+
 
     public Speler(String spelerNaam,int spelerTeam) {
         this.spelerNaam = spelerNaam;

@@ -20,9 +20,9 @@ public class Applicatie {
 
         Bord spelerBord = new Bord();
         System.out.println(spelerBord);
-        spelerBord.move(3,4,4,4);
-        System.out.println(spelerBord);
 
+        spelerBord.moveChooser(3,4,speler1);
+        System.out.println(spelerBord);
 
 
     }
