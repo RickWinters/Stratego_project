@@ -56,4 +56,12 @@ public class Speelstuk {
     public void setNaam(String naam) {
         this.naam = naam;
     }
+
+    public int getTeam() {
+        return team;
+    }
+
+    public void setTeam(int team) {
+        this.team = team;
+    }
 }

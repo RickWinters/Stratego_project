@@ -75,22 +75,29 @@ public class Bord {
         }
     }
 
-    public String toString(){
+    public void bordPrinten(){
         StringBuilder bordstring = new StringBuilder();
-        bordstring.append("| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| \n");
-        bordstring.append("-----------------------------------------\n");
-        bordstring.append("+---+---+---+---+---+---+---+---+---+---+\n");
+        bordstring.append("X:  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| \n"); //deze coordinaten worden geprint boven het bord
+        bordstring.append("  -----------------------------------------\n"); // dit is een afscheiding van coordinaten tov gevulde matrix
+        bordstring.append("Y:+---+---+---+---+---+---+---+---+---+---+\n");
             for (int y = 0; y < 10; y++) {
-                for (int x = 0; x < 10; x++) { //deze forloop voegt voor ieder vakje de value van het spelstuk toe of een "o" als het vakje leeg is.
+                int yCoordinaat = y+1;
+                if(yCoordinaat<10) {
+                    bordstring.append(" ");
+                }
+                    bordstring.append(yCoordinaat);
+
+                    for (int x = 0; x < 10; x++) { //deze forloop voegt voor ieder vakje de value van het spelstuk toe of een "o" als het vakje leeg is.
                     String spelstukString;
                     if (speelBord[y][x] instanceof Speelstuk) {
                         Speelstuk speelstuk = (Speelstuk) speelBord[y][x];
                         int value = speelstuk.getValue();
                         if (value < 10) {
-                            spelstukString = "|  " + value; //een extra spatie toevoegen als de waarde kleiner is dan tien, zodat de uitlijning mooi klopt.
-                        } else {
-                            spelstukString = "| " + value;
-                        }
+                                spelstukString = "|  " + value; //een extra spatie toevoegen als de waarde kleiner is dan tien, zodat de uitlijning mooi klopt.
+                            } else {
+                                spelstukString = "| " + value;
+                            }
+
                     } else if (speelBord[y][x] instanceof Blokkade) { //Als er een String wordt gevonden dan is het een blokkade
                         spelstukString = "| x ";
                     } else { //Leeg stuk ruimte waar heen gelopen kan worden
@@ -99,9 +106,10 @@ public class Bord {
                     bordstring.append(spelstukString);
                 }
                 bordstring.append("|\n");//Aan het einde komt nog een rechtstreepje en dan een niewline character
-                bordstring.append("+---+---+---+---+---+---+---+---+---+---+\n");
+                bordstring.append("  +---+---+---+---+---+---+---+---+---+---+\n");
             }
-        return bordstring.toString();
+
+        System.out.println(bordstring);
     }
 
 
