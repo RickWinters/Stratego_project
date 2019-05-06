@@ -37,16 +37,6 @@ public class Speler {
         return coords;
     }
 
-    private boolean checkPiece(int[] coords,Bord bord){
-        /*
-        -coords doorgeven aan Bord.checkValidPiece() --> returned false als het niet goed is en print een message naar
-            de user inside de method, returned true als het wel goed is
-
-        -return true als het kan, return false als het niet kan
-         */
-        return bord.checkValidPiece(coords[1],coords[0],this.spelerTeam);
-    }
-
     public void beurt(Bord bord) {
 
         //in een do while not correct loop zetten
@@ -59,7 +49,7 @@ public class Speler {
                 passed = false;
                 continue; //als het misgaat, springt java vanaf hier meteen naar de while(!passed) en slaat de volgende check dus over. Aangezien dat niet gaat :)
             }
-            if(!this.checkPiece(selectCoords,bord)){ //daarna kijken of het wel een correcte speelstuk is
+            if(!bord.checkValidPiece(selectCoords[1],selectCoords[0],this.spelerTeam)){ //daarna kijken of het wel een correcte speelstuk is
                 //prints wanneer iets verkeerd gekozen is gebeurt al in bord.
                 passed = false;
             }
