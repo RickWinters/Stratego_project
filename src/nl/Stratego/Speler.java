@@ -36,7 +36,9 @@ public class Speler {
         }
         return coords;
     }
-
+    /*
+    random comment
+     */
     public void beurt(Bord bord) {
 
         //in een do while not correct loop zetten
