@@ -68,16 +68,24 @@ public class Bord {
         // calls method if pion is own team
         // calls method if pion can move in any direction
 
-
-    public boolean pieceCheck (int pionYLocation, int pionXLocation, Speler spelerAanDeBeurt){
-        Speelstuk gekozenSpeelstuk = (Speelstuk)speelBord[pionYLocation][pionXLocation];
-        if (spelerAanDeBeurt.getSpelerTeam() == gekozenSpeelstuk.getTeam()) {
-            return true;
-        } else {
+    boolean checkValidPiece(int pionYlocation, int pionXLocation, int team){
+        Object gekozenStuk = speelBord[pionYlocation][pionXLocation];
+        if(gekozenStuk == blokkade){
+            System.out.println("Je hebt een blokkade gekozen");
             return false;
+        } else if (gekozenStuk == null){
+            System.out.println("Je hebt een lege plek gekozen");
+            return false;
+        } else {
+            Speelstuk gekozenSpeelStuk = (Speelstuk)gekozenStuk; //casten naar een Speelstuk object
+            if (gekozenSpeelStuk.getTeam() != team){
+                System.out.println("het gekozen speelstuk is niet van jouw team");
+                return false;
+            } else {
+                return true;
+            }
         }
     }
-
 
 
 
@@ -89,7 +97,7 @@ public class Bord {
         }
         //Check of de nieuwe plaats wel beschikbaar is om heen te gaan
         else if (speelBord[pionYLocation][pionXLocation] instanceof Speelstuk) {
-            System.out.println("Dit kan nog niet, hier staat een andere speler");
+            System.out.println("Dit kan nog niet, hier staat een andere Speelstuk");
             return false;
         } else if (speelBord[pionYLocation][pionXLocation] instanceof Blokkade) {
             System.out.println("Hier kun je niet doorheen!");
@@ -109,41 +117,48 @@ public class Bord {
         speelBord[pionYLocationOld][pionXLocationOld] = null;
     }
 
-    public void moveChooser(int pionYLocation, int pionXLocation, Speler speler) {
-        MOVELOOP: //Loop hierdoor totdat een geldige optie gekozen wordt
-        while(true) {
-            Scanner scanner = new Scanner(System.in);
-            String movementDirection = scanner.next();
+    public boolean moveChooser(int pionYLocation, int pionXLocation, Speler speler) {
+        Scanner scanner = new Scanner(System.in);
+        String movementDirection = scanner.next();
 
-            //Kijk of de input voldoet aan een van de volgende cases "u,d,r,l"
-            switch (movementDirection) {
-                case "u":
-                    //Check of hij wel in deze richting kan bewegen, zo ja: voer move uit, zo nee: nieuwe input vragen
-                    if (movementCheck(pionYLocation - 1,pionXLocation)){
-                        movePiece(pionYLocation - 1,pionXLocation,pionYLocation,pionXLocation);
-                        break MOVELOOP;
-                    } break;
-                case "d":
-                    if (movementCheck(pionYLocation + 1,pionXLocation)){
-                        movePiece(pionYLocation + 1,pionXLocation,pionYLocation,pionXLocation);
-                        break MOVELOOP;
-                    } break;
-                case "r":
-                    if (movementCheck(pionYLocation,pionXLocation + 1)){
-                        movePiece(pionYLocation,pionXLocation + 1,pionYLocation,pionXLocation);
-                        break MOVELOOP;
-                    } break;
-                case "l":
-                    if (movementCheck(pionYLocation,pionXLocation - 1)){
-                        movePiece(pionYLocation,pionXLocation - 1,pionYLocation,pionXLocation);
-                        break MOVELOOP;
-                    } break;
-                default:
-                    //Als geen geldige input wordt ingevuld, als "w,a,s" of "dr", dan komt hij hier in terecht en
-                    //vraagt hij om nieuwe input.
-                    System.out.println("U heeft een ongeldige richting gekozen, kies uit: Up (u), Down (d), Left (l), Right (r)");
-            }
+        //Kijk of de input voldoet aan een van de volgende cases "u,d,r,l"
+        switch (movementDirection) {
+            case "u":
+                //Check of hij wel in deze richting kan bewegen, zo ja: voer move uit, zo nee: nieuwe input vragen
+                if (movementCheck(pionYLocation - 1,pionXLocation)){
+                    movePiece(pionYLocation - 1,pionXLocation,pionYLocation,pionXLocation);
+                    return true;
+                } else {
+                    return false;
+                }
+            case "d":
+                if (movementCheck(pionYLocation + 1,pionXLocation)){
+                    movePiece(pionYLocation + 1,pionXLocation,pionYLocation,pionXLocation);
+                    return true;
+                } else {
+                    return false;
+                }
+            case "r":
+                if (movementCheck(pionYLocation,pionXLocation + 1)){
+                    movePiece(pionYLocation,pionXLocation + 1,pionYLocation,pionXLocation);
+                    return true;
+                } else {
+                    return false;
+                }
+            case "l":
+                if (movementCheck(pionYLocation,pionXLocation - 1)){
+                    movePiece(pionYLocation,pionXLocation - 1,pionYLocation,pionXLocation);
+                    return true;
+                } else{
+                    return false;
+                }
+            default:
+                //Als geen geldige input wordt ingevuld, als "w,a,s" of "dr", dan komt hij hier in terecht en
+                //vraagt hij om nieuwe input.
+                System.out.println("U heeft een ongeldige richting gekozen, kies uit: Up (u), Down (d), Left (l), Right (r)");
+                return false;
         }
+
     }
 
 
