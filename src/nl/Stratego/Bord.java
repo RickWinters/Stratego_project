@@ -68,16 +68,6 @@ public class Bord {
         // calls method if pion is own team
         // calls method if pion can move in any direction
 
-
-    public boolean pieceCheck (int pionYLocation, int pionXLocation, Speler spelerAanDeBeurt){
-        Speelstuk gekozenSpeelstuk = (Speelstuk)speelBord[pionYLocation][pionXLocation];
-        if (spelerAanDeBeurt.getSpelerTeam() == gekozenSpeelstuk.getTeam()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     boolean checkValidPiece(int pionYlocation, int pionXLocation, int team){
         Object gekozenStuk = speelBord[pionYlocation][pionXLocation];
         if(gekozenStuk == blokkade){
@@ -89,7 +79,7 @@ public class Bord {
         } else {
             Speelstuk gekozenSpeelStuk = (Speelstuk)gekozenStuk; //casten naar een Speelstuk object
             if (gekozenSpeelStuk.getTeam() != team){
-                System.out.println("het gekozen speelstuk is niet van jou team");
+                System.out.println("het gekozen speelstuk is niet van jouw team");
                 return false;
             } else {
                 return true;
